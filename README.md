@@ -30,3 +30,7 @@ Utilizando um driver chamado ReactiveMongo para acessar o MongoDB essa aplica√ß√
 - DELETE http://localhost:8082/cities/{name} - Deleta uma cidade
 
 [//]: # ( Path: src/main/java/com/example/demo/web/CityController.java)
+
+- Build and run with java 17 or higher
+- gradle build && gradle run
+

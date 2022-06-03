@@ -68,6 +68,7 @@ class CityServiceTest {
         when(cityRepository.deleteByName("São Paulo")).thenReturn(Mono.empty());
         StepVerifier.create(cityService.deleteByName("São Paulo"))
                 .verifyComplete();
+        Mockito.verify(cityRepository).deleteByName("São Paulo");
     }
 
 }
