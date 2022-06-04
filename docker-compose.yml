@@ -9,7 +9,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=docker
       - MONGO_INITDB_ROOT_PASSWORD=mongopw
-      - POSTGRES_DB=cars
+      - POSTGRES_DB=city
 
   app:
     build:
