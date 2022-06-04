@@ -23,7 +23,11 @@ class CityServiceTest {
     @Mock
     private CityRepository cityRepository;
 
-    private City sp = City.builder().name("São Paulo").build();
+    private City sp = City.builder()
+            .name("São Paulo")
+            .country("Brazil")
+            .state("São Paulo")
+            .build();
 
     @Test
     void shouldFindAll() {
@@ -53,22 +57,42 @@ class CityServiceTest {
     }
 
     @Test
+    void shouldNotSaveWhenCityIsEmpty() {
+        City city = new City();
+        StepVerifier.create(cityService.save(city))
+                .expectError(IllegalArgumentException.class)
+                .verify();
+        Mockito.verify(cityRepository, Mockito.never()).save(city);
+    }
+
+    @Test
     void shouldUpdate() {
-        when(cityRepository.delete(sp)).thenReturn(Mono.empty());
+        when(cityRepository.findByName("São Paulo")).thenReturn(Mono.just(sp));
         when(cityRepository.save(sp)).thenReturn(Mono.just(sp));
         StepVerifier.create(cityService.update(sp))
                 .expectNext(sp)
                 .verifyComplete();
-        Mockito.verify(cityRepository).delete(sp);
         Mockito.verify(cityRepository).save(sp);
+        Mockito.verify(cityRepository).findByName("São Paulo");
+    }
+
+    @Test
+    void shouldNotUpdateWhenCityIsEmpty() {
+        City city = new City();
+        StepVerifier.create(cityService.update(city))
+                .expectComplete();
+        Mockito.verify(cityRepository, Mockito.never()).save(city);
+        Mockito.verify(cityRepository, Mockito.never()).findByName("São Paulo");
     }
 
     @Test
     void shouldDelete() {
+        when(cityRepository.findByName("São Paulo")).thenReturn(Mono.just(sp));
         when(cityRepository.deleteByName("São Paulo")).thenReturn(Mono.empty());
         StepVerifier.create(cityService.deleteByName("São Paulo"))
                 .verifyComplete();
         Mockito.verify(cityRepository).deleteByName("São Paulo");
+        Mockito.verify(cityRepository).findByName("São Paulo");
     }
 
 }

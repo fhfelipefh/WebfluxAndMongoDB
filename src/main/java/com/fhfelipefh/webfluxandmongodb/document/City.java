@@ -1,5 +1,6 @@
 package com.fhfelipefh.webfluxandmongodb.document;
 
+import com.fhfelipefh.webfluxandmongodb.config.Generated;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Generated
 public class City {
 
     @Id

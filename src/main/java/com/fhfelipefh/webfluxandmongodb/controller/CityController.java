@@ -1,5 +1,6 @@
 package com.fhfelipefh.webfluxandmongodb.controller;
 
+import com.fhfelipefh.webfluxandmongodb.config.Generated;
 import com.fhfelipefh.webfluxandmongodb.document.City;
 import com.fhfelipefh.webfluxandmongodb.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @Controller
+@Generated
 public class CityController {
 
     @Autowired
