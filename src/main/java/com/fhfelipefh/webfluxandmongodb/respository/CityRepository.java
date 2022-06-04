@@ -3,6 +3,7 @@ package com.fhfelipefh.webfluxandmongodb.respository;
 import com.fhfelipefh.webfluxandmongodb.config.Generated;
 import com.fhfelipefh.webfluxandmongodb.document.City;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Generated
@@ -12,5 +13,5 @@ public interface CityRepository extends ReactiveMongoRepository<City, String> {
     Mono<City> findByName(String name);
     Mono<City> save(City city);
     Mono<Void> deleteByName(String name);
-
+    Flux<City> findCityByCountry(String country);
 }

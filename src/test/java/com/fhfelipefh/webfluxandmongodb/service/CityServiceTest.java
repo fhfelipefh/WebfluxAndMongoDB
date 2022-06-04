@@ -48,6 +48,15 @@ class CityServiceTest {
     }
 
     @Test
+    void shouldFindCityByCountry() {
+        when(cityRepository.findCityByCountry("Brazil")).thenReturn(Flux.just(sp));
+        StepVerifier.create(cityService.findCityByCountry("Brazil"))
+                .expectNext(sp)
+                .verifyComplete();
+        Mockito.verify(cityRepository).findCityByCountry("Brazil");
+    }
+
+    @Test
     void shouldSave() {
         when(cityRepository.save(sp)).thenReturn(Mono.just(sp));
         StepVerifier.create(cityService.save(sp))

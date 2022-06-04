@@ -36,6 +36,20 @@ Utilizando um driver chamado ReactiveMongo para acessar o MongoDB essa aplicaç�
 
 ### Para criar uma imagem docker com o MongoDB e a aplicação:
 
-- gradle build
 - docker-compose up -d
 
+### Para criar um pod com a imagem docker da aplicação:
+
+- kubectl apply -f .k8s/app.yaml
+
+### para verificar o status do pod use:
+
+- kubectl get pods
+
+#### Requisitos
+
+- Docker
+- Kubernetes
+- Docker Compose
+- Gradle
+- MiniKube

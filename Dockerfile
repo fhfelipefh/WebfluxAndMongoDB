@@ -1,5 +1,9 @@
-FROM openjdk:17
+FROM gradle:jdk18-jammy AS build
+ADD . /app
 WORKDIR /app
-COPY build/libs/WebfluxAndMongoDB.jar /app/WebfluxAndMongoDB.jar
+RUN gradle build --no-daemon
+
+FROM openjdk:17 AS runtime
+COPY --from=build /app/build/libs/WebfluxAndMongoDB.jar /WebfluxAndMongoDB.jar
 EXPOSE 8082
 ENTRYPOINT ["java", "-jar", "WebfluxAndMongoDB.jar"]

@@ -5,6 +5,7 @@ import com.fhfelipefh.webfluxandmongodb.document.City;
 import com.fhfelipefh.webfluxandmongodb.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -19,35 +20,33 @@ public class CityController {
     private CityService cityService;
 
     @GetMapping("/cities")
-    @ResponseStatus(HttpStatus.OK)
-    public Flux<City> getCities() {
-        return cityService.findAll()
-                .switchIfEmpty(Mono.error(new RuntimeException("Nenhuma cidade encontrada")));
+    public ResponseEntity<Flux<City>> getCities() {
+        return ResponseEntity.ok(cityService.findAll());
     }
 
     @GetMapping("/cities/{name}")
-    @ResponseStatus(HttpStatus.OK)
-    public Mono<City> getCityByName(@PathVariable String name) {
-        return cityService.findByName(name)
-                .switchIfEmpty(Mono.error(new RuntimeException("Cidade não encontrada")));
+    public ResponseEntity<Mono<City>> getCityByName(@PathVariable String name) {
+        return new ResponseEntity<>(cityService.findByName(name), HttpStatus.OK);
+    }
+
+    @GetMapping("/cities/country/{country}")
+    public ResponseEntity<Flux<City>> getCityByCountry(@PathVariable String country) {
+        return new ResponseEntity<>(cityService.findCityByCountry(country), HttpStatus.OK);
     }
 
     @PostMapping("/cities")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<City> saveCity(@RequestBody City city) {
-        return cityService.save(city).switchIfEmpty(Mono.error(new RuntimeException("Cidade não pode ser salva")));
+    public ResponseEntity<Mono<City>> saveCity(@RequestBody City city) {
+        return new ResponseEntity<>(cityService.save(city), HttpStatus.CREATED);
     }
 
     @PutMapping("/cities/{name}")
-    @ResponseStatus(HttpStatus.OK)
-    public Mono<City> updateCity(@PathVariable String name, @RequestBody City city) {
-        return cityService.update(city).switchIfEmpty(Mono.error(new RuntimeException("Cidade não pode ser atualizada")));
+    public ResponseEntity<Mono<City>> updateCity(@PathVariable String name, @RequestBody City city) {
+        return new ResponseEntity<>(cityService.update(city), HttpStatus.OK);
     }
 
     @DeleteMapping("/cities/{name}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> deleteCity(@PathVariable String name) {
-        return cityService.deleteByName(name);
+    public ResponseEntity<Mono<Void>> deleteCity(@PathVariable String name) {
+        return new ResponseEntity<>(cityService.deleteByName(name), HttpStatus.NO_CONTENT);
     }
 
 }

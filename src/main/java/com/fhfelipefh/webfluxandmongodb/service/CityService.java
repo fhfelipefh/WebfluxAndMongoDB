@@ -51,4 +51,7 @@ public class CityService {
                 .switchIfEmpty(Mono.empty());
     }
 
+    public Flux<City> findCityByCountry(String country) {
+        return cityRepository.findCityByCountry(country).switchIfEmpty(Flux.empty());
+    }
 }
