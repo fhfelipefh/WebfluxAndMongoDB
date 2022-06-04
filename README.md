@@ -31,6 +31,11 @@ Utilizando um driver chamado ReactiveMongo para acessar o MongoDB essa aplicaç�
 
 [//]: # ( Path: src/main/java/com/example/demo/web/CityController.java)
 
-- Build and run with java 17 or higher
+- Build and run com a versão do java 17 ou superior
 - gradle build && gradle run
+
+### Para criar uma imagem docker com o MongoDB e a aplicação:
+
+- gradle build
+- docker-compose up -d
 
