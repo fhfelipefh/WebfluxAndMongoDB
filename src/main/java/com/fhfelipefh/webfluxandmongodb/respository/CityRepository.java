@@ -10,8 +10,8 @@ import reactor.core.publisher.Mono;
 public interface CityRepository extends ReactiveMongoRepository<City, String> {
 
     Mono<City> findById(String id);
-    Mono<City> findByName(String name);
+    Mono<City> findFirstByName(String name);
     Mono<City> save(City city);
-    Mono<Void> deleteByName(String name);
-    Flux<City> findCityByCountry(String country);
+    Mono<Void> deleteAllByName(String name);
+    Flux<City> findFirstCityByCountry(String country);
 }

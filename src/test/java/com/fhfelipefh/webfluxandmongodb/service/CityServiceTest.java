@@ -40,20 +40,20 @@ class CityServiceTest {
 
     @Test
     void shouldFindByName() {
-        when(cityRepository.findByName("São Paulo")).thenReturn(Mono.just(sp));
+        when(cityRepository.findFirstByName("São Paulo")).thenReturn(Mono.just(sp));
         StepVerifier.create(cityService.findByName("São Paulo"))
                 .expectNext(sp)
                 .verifyComplete();
-        Mockito.verify(cityRepository).findByName("São Paulo");
+        Mockito.verify(cityRepository).findFirstByName("São Paulo");
     }
 
     @Test
     void shouldFindCityByCountry() {
-        when(cityRepository.findCityByCountry("Brazil")).thenReturn(Flux.just(sp));
+        when(cityRepository.findFirstCityByCountry("Brazil")).thenReturn(Flux.just(sp));
         StepVerifier.create(cityService.findCityByCountry("Brazil"))
                 .expectNext(sp)
                 .verifyComplete();
-        Mockito.verify(cityRepository).findCityByCountry("Brazil");
+        Mockito.verify(cityRepository).findFirstCityByCountry("Brazil");
     }
 
     @Test
@@ -76,13 +76,13 @@ class CityServiceTest {
 
     @Test
     void shouldUpdate() {
-        when(cityRepository.findByName("São Paulo")).thenReturn(Mono.just(sp));
+        when(cityRepository.findFirstByName("São Paulo")).thenReturn(Mono.just(sp));
         when(cityRepository.save(sp)).thenReturn(Mono.just(sp));
         StepVerifier.create(cityService.update(sp))
                 .expectNext(sp)
                 .verifyComplete();
         Mockito.verify(cityRepository).save(sp);
-        Mockito.verify(cityRepository).findByName("São Paulo");
+        Mockito.verify(cityRepository).findFirstByName("São Paulo");
     }
 
     @Test
@@ -91,17 +91,17 @@ class CityServiceTest {
         StepVerifier.create(cityService.update(city))
                 .expectComplete();
         Mockito.verify(cityRepository, Mockito.never()).save(city);
-        Mockito.verify(cityRepository, Mockito.never()).findByName("São Paulo");
+        Mockito.verify(cityRepository, Mockito.never()).findFirstByName("São Paulo");
     }
 
     @Test
     void shouldDelete() {
-        when(cityRepository.findByName("São Paulo")).thenReturn(Mono.just(sp));
-        when(cityRepository.deleteByName("São Paulo")).thenReturn(Mono.empty());
+        when(cityRepository.findFirstByName("São Paulo")).thenReturn(Mono.just(sp));
+        when(cityRepository.deleteAllByName("São Paulo")).thenReturn(Mono.empty());
         StepVerifier.create(cityService.deleteByName("São Paulo"))
                 .verifyComplete();
-        Mockito.verify(cityRepository).deleteByName("São Paulo");
-        Mockito.verify(cityRepository).findByName("São Paulo");
+        Mockito.verify(cityRepository).deleteAllByName("São Paulo");
+        Mockito.verify(cityRepository).findFirstByName("São Paulo");
     }
 
 }
