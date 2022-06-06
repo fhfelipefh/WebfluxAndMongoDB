@@ -13,7 +13,6 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @Controller
-@Generated
 public class CityController {
 
     @Autowired

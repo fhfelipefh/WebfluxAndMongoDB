@@ -45,13 +45,13 @@ public class CityService {
                 .flatMap(c -> cityRepository.save(c));
     }
 
+    public Flux<City> findCityByCountry(String country) {
+        return cityRepository.findCityByCountry(country).switchIfEmpty(Flux.empty());
+    }
+
     private Mono<City> validateCityToSave(City city) {
         return Mono.just(city)
                 .filter(c -> c.getName() != null && c.getState() != null && c.getCountry() != null)
                 .switchIfEmpty(Mono.empty());
-    }
-
-    public Flux<City> findCityByCountry(String country) {
-        return cityRepository.findCityByCountry(country).switchIfEmpty(Flux.empty());
     }
 }
