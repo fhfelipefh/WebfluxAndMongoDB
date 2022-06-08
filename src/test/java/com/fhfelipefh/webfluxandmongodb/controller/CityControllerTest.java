@@ -83,7 +83,7 @@ class CityControllerTest {
     @Test
     @DisplayName("Should update city")
     void updateCity() {
-        ResponseEntity<Mono<City>> response = cityController.updateCity("São Paulo", city);
+        ResponseEntity<Mono<City>> response = cityController.updateCity(city);
         StepVerifier.create(Objects.requireNonNull(response.getBody()))
                 .expectNext(city)
                 .verifyComplete();

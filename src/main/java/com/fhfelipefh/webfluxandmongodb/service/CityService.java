@@ -14,11 +14,11 @@ public class CityService {
     private CityRepository cityRepository;
 
     public Flux<City> findAll() {
-        return cityRepository.findAll().switchIfEmpty(Flux.empty());
+        return cityRepository.findAll();
     }
 
     public Mono<City> findByName(String name) {
-        return cityRepository.findFirstByName(name).switchIfEmpty(Mono.empty());
+        return cityRepository.findFirstByName(name);
     }
 
     public Mono<City> update(City city) {
@@ -29,13 +29,13 @@ public class CityService {
                     foundCity.setCountry(c.getCountry());
                     foundCity.setState(c.getState());
                     return cityRepository.save(foundCity);
-                })).switchIfEmpty(Mono.empty());
+                })).switchIfEmpty(Mono.error(new Exception("Update failed")));
     }
 
     public Mono<Void> deleteByName(String name) {
         return cityRepository.findFirstByName(name)
                 .flatMap(c -> cityRepository.deleteAllByName(c.getName()))
-                .switchIfEmpty(Mono.empty());
+                .then();
     }
 
     public Mono<City> save(City city) {
@@ -45,7 +45,7 @@ public class CityService {
     }
 
     public Flux<City> findCityByCountry(String country) {
-        return cityRepository.findFirstCityByCountry(country).switchIfEmpty(Flux.empty());
+        return cityRepository.findFirstCityByCountry(country);
     }
 
     private Mono<City> validateCityToSave(City city) {

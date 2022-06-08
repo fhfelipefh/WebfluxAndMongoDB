@@ -52,7 +52,7 @@ public class CityControllerIntegrationTest {
     public void updateCity() {
         String expected = "{\"id\":\"\",\"name\":\"São Paulo\",\"state\":\"RS\",\"country\":\"Brasil\"}";
         City updatedCity = buildCity("São Paulo", "RS", "Brasil");
-        restTemplate.put("/cities/São Paulo", updatedCity, String.class);
+        restTemplate.put("/cities", updatedCity);
         String response = restTemplate.getForObject("/cities/São Paulo", String.class);
         response = response.replaceAll("\"id\":\"[^\"]+\"", "\"id\":\"\"");
         assertEquals(expected, response);

@@ -35,8 +35,8 @@ public class CityController {
         return new ResponseEntity<>(cityService.save(city), HttpStatus.CREATED);
     }
 
-    @PutMapping("/cities/{name}")
-    public ResponseEntity<Mono<City>> updateCity(@PathVariable String name, @RequestBody City city) {
+    @PutMapping("/cities")
+    public ResponseEntity<Mono<City>> updateCity(@RequestBody City city) {
         return new ResponseEntity<>(cityService.update(city), HttpStatus.OK);
     }
 
