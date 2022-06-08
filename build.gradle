@@ -37,6 +37,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.slf4j:slf4j-api:1.7.25'
     implementation 'org.jacoco:jacoco-maven-plugin:0.8.8'
     implementation 'org.apache.maven.reporting:maven-reporting-api:4.0.0-M1'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'

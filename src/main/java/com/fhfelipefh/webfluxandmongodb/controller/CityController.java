@@ -2,7 +2,7 @@ package com.fhfelipefh.webfluxandmongodb.controller;
 
 import com.fhfelipefh.webfluxandmongodb.document.City;
 import com.fhfelipefh.webfluxandmongodb.service.CityService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +10,10 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
+@RequiredArgsConstructor
 public class CityController {
 
-    @Autowired
-    private CityService cityService;
+    private final CityService cityService;
 
     @GetMapping("/cities")
     public ResponseEntity<Flux<City>> getCities() {
